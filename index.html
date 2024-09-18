@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seriøs Valgomat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        #question {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Seriøs Valgomat</h1>
+        <div id="question">Ønsker du store endringer?</div>
+        <button onclick="handleAnswer('yes')">Ja</button>
+        <button onclick="handleAnswer('no')">Nei</button>
+
+        <div id="result" class="result" style="display: none;">
+            <p id="resultText"></p>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+
+        function handleAnswer(answer) {
+            switch (currentQuestion) {
+                case 1: // Spørsmål 1
+                    if (answer === 'yes') {
+                        setQuestion("Ønsker du å begrense internasjonal innflytelse?");
+                        currentQuestion = 2;
+                    } else {
+                        setQuestion("Har du en prinsipiell tro på sosiale støtteordninger?");
+                        currentQuestion = 5;
+                    }
+                    break;
+                case 2: // Spørsmål 2
+                    if (answer === 'yes') {
+                        setQuestion("Ønsker du flere generelle støtteordninger, eller at de styrkes?");
+                        currentQuestion = 4;
+                    } else {
+                        setQuestion("Har du en prinsipiell tro på liberalisme?");
+                        currentQuestion = 3;
+                    }
+                    break;
+                case 3: // Spørsmål 3
+                    if (answer === 'yes') {
+                        showResult('INP');
+                    } else {
+                        showResult('FrP');
+                    }
+                    return;
+                case 4: // Spørsmål 4
+                    if (answer === 'yes') {
+                        showResult('Rødt');
+                    } else {
+                        showResult('SP');
+                    }
+                    return;
+                case 5: // Spørsmål 5
+                    if (answer === 'yes') {
+                        setQuestion("Har du et kristent livssyn?");
+                        currentQuestion = 6;
+                    } else {
+                        setQuestion("Ønsker du mer nytenkning - i motsetning til å balansere mulighetene bedre som allerede finnes?");
+                        currentQuestion = 8;
+                    }
+                    break;
+                case 6: // Spørsmål 6
+                    if (answer === 'yes') {
+                        showResult('KrF');
+                    } else {
+                        setQuestion("Ønsker du at de sosiale støtteordningene skal styrkes betraktelig?");
+                        currentQuestion = 7;
+                    }
+                    break;
+                case 7: // Spørsmål 7
+                    if (answer === 'yes') {
+                        showResult('SV');
+                    } else {
+                        showResult('AP');
+                    }
+                    return;
+                case 8: // Spørsmål 8
+                    if (answer === 'yes') {
+                        setQuestion("Brenner du for miljøet?");
+                        currentQuestion = 9;
+                    } else {
+                        showResult('Høyre');
+                    }
+                    break;
+                case 9: // Spørsmål 9
+                    if (answer === 'yes') {
+                        showResult('MDG');
+                    } else {
+                        showResult('Venstre');
+                    }
+                    return;
+                default:
+                    break;
+            }
+        }
+
+        function setQuestion(questionText) {
+            document.getElementById('question').innerText = questionText;
+        }
+
+        function showResult(party) {
+            document.getElementById('resultText').innerText = `Det passer deg nok godt å stemme på ${party}.`;
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('question').style.display = 'none';
+            document.querySelectorAll('button').forEach(button => button.style.display = 'none');
+        }
+    </script>
+</body>
+</html>
